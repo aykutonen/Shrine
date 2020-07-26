@@ -81,6 +81,16 @@ class _BackDropState extends State<BackDrop>
   }
 
   // TODO: Add override for didUpdateWidget (104)
+  @override
+  void didUpdateWidget(BackDrop old) {
+    super.didUpdateWidget(old);
+
+    if (widget.currentCategory != old.currentCategory) {
+      _toggleBackdropLayerVisibility();
+    } else if (!_frontLayerVisible) {
+      _controller.fling(velocity: _kFlingVelocity);
+    }
+  }
 
   @override
   void dispose() {
@@ -89,7 +99,7 @@ class _BackDropState extends State<BackDrop>
   }
 
   // Add functions to get and change front layer visibility (104)
-  bool get _FrontLayerVisible {
+  bool get _frontLayerVisible {
     final AnimationStatus status = _controller.status;
     return status == AnimationStatus.completed ||
         status == AnimationStatus.forward;
@@ -97,16 +107,16 @@ class _BackDropState extends State<BackDrop>
 
   void _toggleBackdropLayerVisibility() {
     _controller.fling(
-        velocity: _FrontLayerVisible ? -_kFlingVelocity : _kFlingVelocity);
+        velocity: _frontLayerVisible ? -_kFlingVelocity : _kFlingVelocity);
   }
 
-  // TODO: Add BuildContext and BoxConstraints parameters to _buildStack (104)
+  // Add BuildContext and BoxConstraints parameters to _buildStack (104)
   Widget _buildStack(BuildContext context, BoxConstraints constraints) {
     const double layerTitleHeight = 48.0;
     final Size layerSize = constraints.biggest;
     final double layerTop = layerSize.height - layerTitleHeight;
 
-    // TODO: Create a RelativeRectTween Animation (104)
+    // Create a RelativeRectTween Animation (104)
     Animation<RelativeRect> layerAnimation = RelativeRectTween(
       begin: RelativeRect.fromLTRB(
           0.0, layerTop, 0.0, layerTop - layerSize.height),
@@ -119,7 +129,7 @@ class _BackDropState extends State<BackDrop>
         // Wrap backLayer in an ExcludeSemantics widget (104)
         ExcludeSemantics(
           child: widget.backLayer,
-          excluding: _FrontLayerVisible,
+          excluding: _frontLayerVisible,
         ),
         // Add a PositionedTransition (104)
         PositionedTransition(
