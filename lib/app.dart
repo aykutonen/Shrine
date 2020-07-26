@@ -41,14 +41,14 @@ class _ShrineAppState extends State<ShrineApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Shrine',
-      // TODO: Change home: to a Backdrop with a HomePage frontLayer (104)
+      // Change home: to a Backdrop with a HomePage frontLayer (104)
       // home: HomePage(),
       home: BackDrop(
         // Make currentCategory field take _currentCategory (104)
         currentCategory: _currentCategory,
-        // TODO: Pass _currentCategory for frontLayer (104)
+        // Pass _currentCategory for frontLayer (104)
         frontLayer: HomePage(category: _currentCategory),
-        // TODO: Change backLayer field value to CategoryMenuPage (104)
+        // Change backLayer field value to CategoryMenuPage (104)
         backLayer: CategoryMenuPage(
           currentCategory: _currentCategory,
           onCategoryTap: _onCategoryTap,
