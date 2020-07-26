@@ -13,13 +13,14 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
+import 'supplemental/cut_corners_border.dart';
 
 import 'home.dart';
 import 'login.dart';
+import 'colors.dart';
 
 // TODO: Convert ShrineApp to stateful widget (104)
 class ShrineApp extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,6 +33,7 @@ class ShrineApp extends StatelessWidget {
       initialRoute: '/login',
       onGenerateRoute: _getRoute,
       // TODO: Add a theme (103)
+      theme: _kShrineTheme,
     );
   }
 
@@ -49,4 +51,116 @@ class ShrineApp extends StatelessWidget {
 }
 
 // TODO: Build a Shrine Theme (103)
+final ThemeData _kShrineTheme = _buildShrineTheme();
+
+ThemeData _buildShrineTheme() {
+  final ThemeData base = ThemeData.light();
+  return base.copyWith(
+    primaryColor: kShrinePurple,
+    buttonTheme: base.buttonTheme.copyWith(
+      buttonColor: kShrinePurple,
+      textTheme: ButtonTextTheme.primary,
+      colorScheme: ColorScheme.light().copyWith(primary: kShrinePurple),
+    ),
+    scaffoldBackgroundColor: kShrineSurfaceWhite,
+    textTheme: _buildShrineTextTheme(base.textTheme),
+    primaryTextTheme: _buildShrineTextTheme(base.primaryTextTheme),
+    accentTextTheme: _buildShrineTextTheme(base.accentTextTheme),
+    primaryIconTheme: base.iconTheme.copyWith(
+      color: kShrineSurfaceWhite,
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      focusedBorder: CutCornersBorder(
+        borderSide: BorderSide(
+          width: 2,
+          color: kShrinePurple,
+        ),
+      ),
+      border: CutCornersBorder(),
+    ),
+  );
+  // return base.copyWith(
+  //   accentColor: kShrineBrown900,
+  //   primaryColor: kShrinePink100,
+  //   buttonTheme: base.buttonTheme.copyWith(
+  //     buttonColor: kShrinePink100,
+  //     colorScheme: base.colorScheme.copyWith(
+  //       secondary: kShrineBrown900,
+  //     ),
+  //     shape: BeveledRectangleBorder(
+  //       borderRadius: BorderRadius.all(Radius.circular(7)),
+  //     )
+  //   ),
+  //   buttonBarTheme: base.buttonBarTheme.copyWith(
+  //     buttonTextTheme: ButtonTextTheme.accent,
+  //   ),
+  //   scaffoldBackgroundColor: kShrineBackgroundWhite,
+  //   cardColor: kShrineBackgroundWhite,
+  //   textSelectionColor: kShrinePink100,
+  //   errorColor: kShrineErrorRed,
+  //   // TODO: Add the text themes (103)
+  //   textTheme: _buildShrineTextTheme(base.textTheme),
+  //   primaryTextTheme: _buildShrineTextTheme(base.primaryTextTheme),
+  //   accentTextTheme: _buildShrineTextTheme(base.accentTextTheme),
+  //   // TODO: Add the icon themes (103)
+  //   primaryIconTheme: base.iconTheme.copyWith(
+  //     color: kShrineBrown900,
+  //   ),
+  //   // TODO: Decorate the inputs (103)
+  //   inputDecorationTheme: InputDecorationTheme(
+  //     focusedBorder: OutlineInputBorder(
+  //       borderSide: BorderSide(
+  //         width: 2,
+  //         color: kShrineBrown900,
+  //       ),
+  //     ),
+  //     border: CutCornersBorder(),
+  //   ),
+  // );
+}
+
 // TODO: Build a Shrine Text Theme (103)
+TextTheme _buildShrineTextTheme(TextTheme base) {
+  return base
+      .copyWith(
+        headline5: base.headline5.copyWith(
+          fontWeight: FontWeight.w500,
+        ),
+        headline6: base.headline6.copyWith(
+          fontSize: 18,
+        ),
+        caption: base.caption.copyWith(
+          fontWeight: FontWeight.w400,
+          fontSize: 14,
+        ),
+        bodyText1: base.bodyText1.copyWith(
+          fontWeight: FontWeight.w500,
+          fontSize: 16,
+        ),
+      )
+      .apply(
+        fontFamily: 'Rubik',
+      );
+
+  // return base
+  //     .copyWith(
+  //         headline5: base.headline5.copyWith(
+  //           fontWeight: FontWeight.w500,
+  //         ),
+  //         headline6: base.caption.copyWith(
+  //           fontSize: 18,
+  //         ),
+  //         caption: base.caption.copyWith(
+  //           fontWeight: FontWeight.w400,
+  //           fontSize: 14,
+  //         ),
+  //         bodyText1: base.bodyText1.copyWith(
+  //           fontWeight: FontWeight.w500,
+  //           fontSize: 16,
+  //         ))
+  //     .apply(
+  //       fontFamily: 'Rubik',
+  //       displayColor: kShrineBrown900,
+  //       bodyColor: kShrineBrown900,
+  //     );
+}

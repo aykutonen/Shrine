@@ -16,10 +16,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'model/product.dart';
-import 'model/product.dart';
 import 'model/products_repository.dart';
-import 'model/product.dart';
-import 'model/products_repository.dart';
+import 'supplemental/asymmetric_view.dart';
+
 
 class HomePage extends StatelessWidget {
   // TODO: Make a collection of cards (102)
@@ -39,10 +38,11 @@ class HomePage extends StatelessWidget {
       return Card(
         clipBehavior: Clip.antiAlias,
         // TODO: Adjust card heights (103)
+        elevation: 0,
         child: Column(
           // TODO: Center items on the card (103)
 
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             AspectRatio(
               aspectRatio: 18 / 11,
@@ -58,19 +58,22 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(16, 12, 16, 9),
                 child: Column(
                   // TODO: Align labels to the bottom and center (103)
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   // TODO: Change innermost Column (103)
                   children: <Widget>[
                     // TODO: Handle overflowing labels (103)
                     Text(
-                      product.name,
-                      style: theme.textTheme.headline6,
+                      product == null ? '' : product.name,
+                      style: theme.textTheme.button,
+                      softWrap: false,
+                      overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: 4),
                     Text(
-                      formatter.format(product.price),
-                      style: theme.textTheme.subtitle2,
+                      product == null ? '' : formatter.format(product.price),
+                      style: theme.textTheme.caption,
                     ),
                   ],
                 ),
@@ -90,6 +93,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       // TODO: Add app bar (102)
       appBar: AppBar(
+        brightness: Brightness.dark,
         // TODO: Add buttons and title (102)
         leading: IconButton(
           icon: Icon(
@@ -124,13 +128,16 @@ class HomePage extends StatelessWidget {
         ],
       ),
       // TODO: Add a grid view (102)
-      body: GridView.count(
-        crossAxisCount: 2,
-        padding: EdgeInsets.all(16),
-        childAspectRatio: 8 / 9,
-        // TODO: Build a grid of cards (102)
-        children: _buildGridCars(context),
+      body: AsymmetricView(
+        products: ProductsRepository.loadProducts(Category.all),
       ),
+      // body: GridView.count(
+      //   crossAxisCount: 2,
+      //   padding: EdgeInsets.all(16),
+      //   childAspectRatio: 8 / 9,
+      //   // TODO: Build a grid of cards (102)
+      //   children: _buildGridCars(context),
+      // ),
       // TODO: Set resizeToAvoidBottomInset (101)
       resizeToAvoidBottomInset: false,
     );
