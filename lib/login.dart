@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:Shrine/colors.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -30,20 +29,21 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    _usernameFocusNode.addListener(() {
-      setState(() {
-        //Redraw so that the username label reflects the focus state
+    _usernameFocusNode
+      .addListener(() {
+        setState(() {
+          //Redraw so that the username label reflects the focus state
+        });
       });
-    });
 
-    _passwordFocusNode.addListener(() {
-      setState(() {
-        //Redraw so that the password label reflects the focus state
+    _passwordFocusNode
+      .addListener(() {
+        setState(() {
+          //Redraw so that the password label reflects the focus state
+        });
       });
-    });
   }
 
-  // TODO: Add text editing controllers (101)
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,10 +54,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 80.0),
             Column(
               children: <Widget>[
-                Image.asset(
-                  'assets/diamond.png',
-                  color: kShrineBlack,
-                ),
+                Image.asset('assets/diamond.png'),
                 SizedBox(height: 16.0),
                 Text(
                   'SHRINE',
@@ -66,11 +63,8 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
             SizedBox(height: 120.0),
-            // TODO: Wrap Username with AccentColorOverride (103)
-            // TODO: Remove filled: true values (103)
-            // TODO: Wrap Password with AccentColorOverride (103)
-            // TODO: Add TextField widgets (101)
             TextField(
+              controller: _usernameController,
               decoration: InputDecoration(
                 labelText: 'Username',
                 labelStyle: TextStyle(
@@ -79,10 +73,10 @@ class _LoginPageState extends State<LoginPage> {
                         : _unfocusedColor),
               ),
               focusNode: _usernameFocusNode,
-              controller: _usernameController,
             ),
-            SizedBox(height: 12),
+            SizedBox(height: 12.0),
             TextField(
+              controller: _passwordController,
               decoration: InputDecoration(
                 labelText: 'Password',
                 labelStyle: TextStyle(
@@ -92,44 +86,34 @@ class _LoginPageState extends State<LoginPage> {
               ),
               focusNode: _passwordFocusNode,
               obscureText: true,
-              controller: _passwordController,
             ),
-            // TODO: Add button bar (101)
             ButtonBar(
-              // TODO: Add a beveled rectangular border to CANCEL (103)
               children: <Widget>[
-                // TODO: Add buttons (101)
                 FlatButton(
                   child: Text('CANCEL'),
-                  // shape: BeveledRectangleBorder(
-                  //   borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                  // ),
+                  shape: BeveledRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                  ),
                   onPressed: () {
-                    // TODO: Clear the text fields (101)
                     _usernameController.clear();
                     _passwordController.clear();
                   },
                 ),
-                // TODO: Add an elevation to NEXT (103)
-                // TODO: Add a beveled rectangular border to NEXT (103)
                 RaisedButton(
                   child: Text('NEXT'),
-                  elevation: 8,
-                  // shape: BeveledRectangleBorder(
-                  //   borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                  // ),
+                  elevation: 8.0,
+                  shape: BeveledRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                  ),
                   onPressed: () {
-                    // TODO: Show the next page (101)
                     Navigator.pop(context);
                   },
-                )
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-// TODO: Add AccentColorOverride (103)
